@@ -29,4 +29,4 @@ if __name__ == '__main__':
         f = open('/var/lib/update-notifier/updates-available', 'r')
         apt_update_check(f)
         apt_sec_update_check(f)
-        sleep(10)
+        sleep(120)
