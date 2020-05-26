@@ -5,16 +5,12 @@ APT_UPDATES = Gauge('num_updates', 'Number of updates pending')
 APT_SEC_UPDATES = Gauge('num_sec_updates', 'Number of security updates pending')
 
 
-def apt_update_check(file):
+def check_updates(file):
     for row in file:
         if 'packages' in row:
             data = row.split()
             value = data[0]
             APT_UPDATES.set(value)
-
-
-def apt_sec_update_check(file):
-    for row in file:
         if 'security' in row:
             data = row.split()
             value = data[0]
@@ -27,6 +23,6 @@ if __name__ == '__main__':
     # Generate some requests.
     while True:
         f = open('/var/lib/update-notifier/updates-available', 'r')
-        apt_update_check(f)
-        apt_sec_update_check(f)
+        check_updates(f)
+        f.close()
         sleep(120)
